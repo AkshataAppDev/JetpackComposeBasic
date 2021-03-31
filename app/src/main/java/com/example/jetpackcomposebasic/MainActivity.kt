@@ -19,28 +19,34 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            JetpackComposeBasicTheme {  // this name should be as per your project name
-                // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
-                    Greeting("Android")
-                }
-            }
+            MyApp()
         }
     }
 }
 
+
+// contains UI code specific to this activity so Greeting could be reusable
+// Also, MyApp can now be used in multiple places as it defines a top level configuration.
 @Composable
-fun Greeting(name: String) {
-    Surface(color = Color.Yellow)
-    {
-        Text(text = "Hello $name!", modifier = Modifier.padding(24.dp)) // will be drawn on the surface color
+fun MyApp()
+{
+    JetpackComposeBasicTheme {  // this name should be as per your project name
+        // A surface container using the 'background' color from the theme
+        Surface(color = Color.Yellow) {
+            Greeting(name = "Android")
+        }
     }
 }
 
-@Preview(showBackground = true, name="Text Preview") // Preview mark when any parameterless function
+
+
+@Composable // now greeting is reusable
+fun Greeting(name: String) {
+        Text(text = "Hello $name!", modifier = Modifier.padding(24.dp)) // will be drawn on the surface color
+}
+
+@Preview // Preview mark when any parameterless function
 @Composable
 fun DefaultPreview() {
-    JetpackComposeBasicTheme {
-        Greeting("Android")
-    }
+    MyApp()
 }
